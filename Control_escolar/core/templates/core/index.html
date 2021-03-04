@@ -1,0 +1,88 @@
+{% extends 'core/base.html' %} {% block title %}Calificaciones{% endblock %} {%block card %}
+
+{% endblock %} {% block content %}
+
+<section class="dark-grey-text mb-4">
+  <div class="card">
+    <div class="card-body rounded-top border-top p-5">
+       
+  <div id='calendar'></div>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+ 
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'es',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+        },
+        initialDate: '2021-03-01',
+        navLinks: true, // can click day/week names to navigate views
+        businessHours: true, // display business hours
+        editable: true,
+        selectable: true,
+        events: [
+          {
+            title: 'Entrega de proyecto',
+            start: '2021-03-01T13:00:00',
+            constraint: 'businessHours'
+          },
+          {
+            title: 'Reunión',
+            start: '2021-03-14T11:00:00',
+            constraint: 'availableForReunión', // defined below
+            color: '#257e4a'
+          },
+          {
+            title: 'Conferencia',
+            start: '2021-03-18',
+            end: '2021-03-20'
+          },
+        
+          // zonas donde se debe dejar "Reunión"
+          {
+            groupId: 'availableForReunión',
+            start: '2021-03-14T10:00:00',
+            end: '2021-03-14T16:00:00',
+            display: 'background'
+          },
+          {
+            groupId: 'availableForReunión',
+            start: '2021-03-13T10:00:00',
+            end: '2021-03-13T16:00:00',
+            display: 'background'
+          },
+  
+          // áreas rojas donde no se pueden eliminar eventos
+          {
+            start: '2021-03-24',
+            end: '2021-03-28',
+            overlap: false,
+            display: 'background',
+            color: '#ff9f89'
+          },
+          {
+            start: '2021-03-06',
+            end: '2021-03-08',
+            overlap: false,
+            display: 'background',
+            color: '#ff9f89'
+          }
+        ]
+      });
+  
+      calendar.render();
+    });
+
+    
+  
+  </script>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
